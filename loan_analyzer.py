@@ -1,5 +1,6 @@
 # coding: utf-8
 import csv
+
 from pathlib import Path
 
 """Part 1: Automate the Calculations.
@@ -196,9 +197,11 @@ inexpensive_loans =[]
 # @TODO: Loop through all the loans and append any that cost $500 or less to the `inexpensive_loans` list
 # YOUR CODE HERE!
 
-inexpensive_loans = [
-    loan["loan_price"] for loan in loans if loan["loan_price"] <= 500
-]
+for loan in loans:
+    if loan["loan_price"] <= 500:
+        inexpensive_loans.append(loan)
+
+
 
 # @TODO: Print the `inexpensive_loans` list
 # YOUR CODE HERE!
@@ -228,3 +231,12 @@ output_path = Path("inexpensive_loans.csv")
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
 # YOUR CODE HERE!
+
+
+with open(output_path, "w") as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=",")
+    csvwriter.writerow(header)
+ 
+    for loan in inexpensive_loans:
+        print(loan)
+        csvwriter.writerow(loan.values())
